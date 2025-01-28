@@ -1,4 +1,3 @@
-import TaskItem from "./TaskItem";
 import CategoryItem from "./CategoryItem";
 function ListGroup() {
     const categories = ["Category 1", "Category 2", "Category 3"];
