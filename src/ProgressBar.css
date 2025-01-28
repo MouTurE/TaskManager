@@ -1,0 +1,28 @@
+.progress-bar-container{
+    display: flex;
+    height: 12%;
+    background-color: black;
+    border-top: 1px solid rgb(43, 43, 43);
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.progress-bar-container p {
+    margin-right: 5px;
+    color: rgb(223, 223, 223);
+}
+
+.progress-bar{
+    width:70%;
+    height: 50%;
+    background-color: rgb(117, 117, 117);
+    border-radius: 10px;
+}
+
+.progress-bar div {
+    width:50%;
+    height: 100%;
+    background-color: rgb(0, 195, 255);
+    border-radius: 10px;
+}

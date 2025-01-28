@@ -1,0 +1,50 @@
+.tasks-list-item{
+
+    background-color: rgb(22, 22, 22);
+    border-radius: 10px;
+    list-style-type: none;
+    font-size: 140%;
+    color:white;
+    padding: 5%;
+    margin-right: 2%;
+    display: flex;
+    
+    
+    margin-top: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    transition: padding 0.1s;
+
+}
+
+
+
+.tasks-list-item:hover{
+
+    padding-top:7%;
+    padding-bottom: 7%;
+    background-color: rgb(25, 25, 25);
+   
+}
+
+.tasks-list-item::before{
+    content: "";
+    border: 1px solid rgb(255, 255, 255);
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+
+.tasks-list-item:hover:after{
+    display: inline-block;
+    content: "\00d7"; /* This will render the 'X' */
+    float: right;
+    transform: scale(1,1);
+    color: gray;
+    cursor: pointer;
+}
+
