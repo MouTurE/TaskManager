@@ -15,7 +15,12 @@ function CategoryItem ({categoryName,Tasks}:Props)  {
     
     return (
 
-        <div className="category-task-holder"  id={categoryName}> {Tasks.map((Task,index) => ( <TaskItem key={`${categoryName} Task ${index}`} >{Task}</TaskItem> ))}  </div>
+        <div className="category-task-holder"  id={categoryName}> {Tasks.map((Task,index) => (
+            <>
+            <TaskItem completed={false} key={`${categoryName} Task ${index}`} >{Task}</TaskItem>
+            <TaskItem completed={true} key={`${categoryName} Task ${index}`} >{Task}</TaskItem> 
+            </>
+        ))}  </div>
     );
 }
 
