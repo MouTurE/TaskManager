@@ -1,6 +1,63 @@
 import CategoryItem from "./CategoryItem";
+import {useState} from "react";
+
 function ListGroup() {
-    const categories = ["Category 1", "Category 2", "Category 3"];
+
+  // Category creation
+    
+   
+  const [visible, toggleVisibility] = useState(false);
+
+  const [categories, setCategories] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState("");
+    
+  function changeVisibility () {
+    toggleVisibility(!visible);
+  }
+
+
+  const createNewCategory = (value: string) => {
+    if (value.trim() === "") 
+      {
+        changeVisibility();
+        return;
+      } // Prevent empty categories
+    setCategories([...categories, value]); // Add new category
+    changeVisibility();
+  };
+  
+  
+  const CreateCategegoryButton = (
+     <div>
+            <button onClick={changeVisibility}>Create New Category</button>
+            {visible? <input onKeyDown={(e) => {
+        if (e.key === "Enter")
+          createNewCategory((e.target as HTMLInputElement).value);
+          
+        }} type="text" autoFocus /> : null}
+
+       
+          </div>
+  )
+
+  const CreateTaskButton = (
+    <div>
+           <button onClick={changeVisibility}>Create New Task</button>
+           {visible? <input onKeyDown={(e) => {
+       if (e.key === "Enter")
+         createNewCategory((e.target as HTMLInputElement).value);
+         
+       }} type="text" autoFocus /> : null}
+
+      
+         </div>
+ )
+
+
+
+  
+  // Rest of the code
 
     const selectCategory = (selectedCategory:string) => {
         const taskHolders = document.querySelectorAll<HTMLElement>(".category-task-holder");
@@ -26,6 +83,8 @@ function ListGroup() {
           <ul className="list-group">
             <h1>Categories</h1>
 
+            {CreateCategegoryButton}
+
             {categories.map((category) => (
               <li onClick={() => selectCategory(category)} key={category} className="categories-list-item">
                 {category}
@@ -39,10 +98,10 @@ function ListGroup() {
           <ul className="list-group">
             <h1 id="tasks-header">Tasks</h1>
 
-            /* Automate this part*/
+            {CreateTaskButton}
 
             {categories.map(category => (
-              <CategoryItem key={category} categoryName={category} Tasks={[`A task created for "${category}"`]}></CategoryItem>
+              <CategoryItem key={category} categoryName={category} Tasks={tasks}></CategoryItem>
             ))};
            
            

@@ -13,46 +13,36 @@
     margin-top: 5px;
     font-family: Arial, Helvetica, sans-serif;
     
-    transition: padding 0.1s;
+    transition: padding 0.3s;
 
 }
 
+.tasks-list-item:hover {
+
+    padding-top: 7%;
+    padding-bottom: 7%;
+    background-color: rgb(25, 25, 25);
+
+
+}
 .task-checkbox {
-    width: 30px;
+    width: 21px;
     height: 20px;
     border: 1px solid white;
     border-radius: 50px;
     cursor: pointer;
+    margin-right: 7px;
 }
 
 .task-checkbox-completed {
-    width: 30px;
+    width: 21px;
     height: 20px;
     border: 3px double gray;
     background-color: rgb(96, 96, 96);
     border-radius: 50px;
     cursor: pointer;
+    margin-right: 7px;
 }
-
-.tasks-list-item:hover{
-
-    padding-top:7%;
-    padding-bottom: 7%;
-    background-color: rgb(25, 25, 25);
-   
-}
-
-/* .tasks-list-item::before{
-    content: "";
-    border: 1px solid rgb(255, 255, 255);
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    
-} */
 
 .tasks-list-item:hover:after{
     display: inline-block;

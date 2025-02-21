@@ -1,7 +1,10 @@
+import { useState, useEffect } from "react";
 import ListGroup from "./components/ListGroup";
 
 
 function App () {
+
+
 
   const MainPage = <>
     <header> 
@@ -17,10 +20,9 @@ function App () {
     
   </>
 
-  return MainPage;
-
-    
+    return MainPage;
 }
+
 
 
 export default App;

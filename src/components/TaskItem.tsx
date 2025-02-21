@@ -17,10 +17,12 @@ function TaskItem({
   taskChangedToCompleted,
   taskChangedToDefault,
 }: Props) {
+
   const [completed, toggleCompleted] = useState(false);
 
   const toggleState = () => {
     toggleCompleted(!completed);
+    
     if (completed) {
       taskChangedToCompleted();
     } else {
