@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ListGroup from "./components/ListGroup";
 
 
@@ -25,11 +25,11 @@ interface categoryWrapperProps {
 
 function CategoryWrapper ({visible, children}:categoryWrapperProps) {
 
+  const [uncompletedTasks, setUncompletedTasks] = useState<string[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<string[]>([]);
 
-  const [tasks, setTasks] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [textInput_visible, textInput_toggleVisibility] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   const CreateTaskButton = (
     <div>
@@ -50,43 +50,74 @@ function CategoryWrapper ({visible, children}:categoryWrapperProps) {
         textInput_toggleVisibility(!textInput_visible);
         return;
       } // Prevent empty categories
-    setTasks([...tasks, value]); // Add new category
+    setUncompletedTasks([...uncompletedTasks, value]); // Add new category
     textInput_toggleVisibility(!textInput_visible);
   };
 
-  
+  const transferTask = (value: string, bool: boolean) => {
+    if (bool) {
+      setCompletedTasks([...completedTasks, value]);
+      setUncompletedTasks(uncompletedTasks.filter((uncompletedTask) => uncompletedTask !== value));
+    } else {
+      setUncompletedTasks([...uncompletedTasks, value]);
+      setCompletedTasks(completedTasks.filter((completedTask) => completedTask !== value));
+    }
+  }
+
+  const progressBar = {
+    width:"100px",
+    height:"10px",
+    border:"2px solid black",
+    padding:"2px"
+  }
+
+  const progressPrecentage = ((completedTasks.length * 100) / (uncompletedTasks.length + completedTasks.length)).toFixed(1);
 
   return <div style={{display: visible ? "block" : "none"}}>
     <h1>{children}</h1>
     {CreateTaskButton}
+
+    
     <ul className="taskList">
-      {tasks.map((task, index) => (
-        <TaskItem deleteTask={(value,boolean) => {
-          setTasks(tasks.filter((task) => task !== value));
-          if (boolean) {
-            setProgress(progress - 1);
-          }
 
-        }} changeProgress={(value) => {
-          if (progress + value < 0 || progress + value > tasks.length)
-            return;
-          setProgress(progress + value)
-        }} key={index}>{task}</TaskItem>
+      {/* List of uncompleted tasks */}
+      {uncompletedTasks.map((uncompletedTask, index) => (
+        <TaskItem completed={false} transferTask={transferTask} deleteTask={(value) => {setUncompletedTasks(uncompletedTasks.filter((uncompletedTask) => uncompletedTask !== value));}} 
+           key={index}>{uncompletedTask}</TaskItem>
       ))}
-    </ul>
 
-    <p> Completed: {progress} / {tasks.length} </p>
+      {/* A line that divides uncompleted and completed tasks visualy */}
+      { completedTasks.length > 0 && uncompletedTasks.length > 0 ? <hr /> : null}
+
+      {/* List of completed tasks */}
+      {completedTasks.map((completedTask, index) => (
+        <TaskItem completed={true} transferTask={transferTask} deleteTask={(value) => {setCompletedTasks(completedTasks.filter((completedTask) => completedTask !== value));}} 
+           key={index}>{completedTask}</TaskItem> ))}
+    </ul>
+    
+      
+
+    <div style={{display:"flex",alignItems:"center"}}>
+
+      <p style={{marginRight:"5px"}}> Completed: {completedTasks.length > 0? progressPrecentage : 0}%</p>
+      <div style={progressBar}>
+        <div style={{width: completedTasks.length > 0 ? `${progressPrecentage}%` : '0%', height: "100%", backgroundColor: "black",transition:"0.5s width"}}></div>
+      </div>
+    </div>
+    
+
   </div>
 }
 
 interface taskItemProps {
   children: string;
-  changeProgress: (value: number) => void;
-  deleteTask: (value: string,decreaseProgress:boolean) => void;
+  completed: boolean;
+  transferTask: (value: string, bool: boolean) => void;
+  deleteTask: (value: string) => void;
 }
 
-function TaskItem ({children,changeProgress,deleteTask}:taskItemProps) {
-  const [completed,toggleCompleted] = useState(false); 
+function TaskItem ({children,completed,transferTask,deleteTask}:taskItemProps) {
+  
 
   const TaskItemStyle = {
     cursor:"pointer",
@@ -95,31 +126,18 @@ function TaskItem ({children,changeProgress,deleteTask}:taskItemProps) {
 
   const circle = <span style={{marginLeft:"10px", cursor:"pointer"}}>⚪</span>
   const fullCircle = <span style={{marginLeft:"10px", cursor:"pointer"}}>⚫</span>
-  const removeButton = <span onClick={()=> {completed? deleteTask(children,true):deleteTask(children,false)}} style={{marginLeft:"10px", cursor:"pointer"}}>|| Remove</span>
-
+  const removeButton = <span onClick={()=> {completed? deleteTask(children):deleteTask(children)}} style={{marginLeft:"10px", cursor:"pointer"}}>|| Remove</span>
+  
 
   const completedTask = <div style={{display:"flex"}}>
       {fullCircle}
-      <li style={TaskItemStyle} onClick={()=>{toggleCompleted(!completed)
-        toggleCompleted(!completed);
-        if (!completed) {
-          changeProgress(1);
-        } else {
-          changeProgress(-1);
-        }
-      }}><b><s>{children}</s></b></li>
+      <li style={TaskItemStyle} onClick={()=>{transferTask(children,false); } }> <b><s>{children}</s></b> </li>
       {removeButton}
     </div>
 
   const uncompletedTask = <div style={{display:"flex"}}>
     {circle}
-  <li style={TaskItemStyle} onClick={()=>{
-    toggleCompleted(!completed);
-    if (!completed) {
-      changeProgress(1);
-    } else {
-      changeProgress(-1);
-    }}}><b>{children}</b></li>
+  <li style={TaskItemStyle} onClick={()=>{transferTask(children,true)}}><b>{children}</b></li>
   {removeButton}
 </div>
   
