@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ListGroup from "./components/ListGroup";
 
 //Category Item
 interface categoryItemProps {
@@ -45,7 +44,7 @@ function CategoryWrapper({ visible, children }: categoryWrapperProps) {
   const [uncompletedTasks, setUncompletedTasks] = useState<string[]>([]);
   const [completedTasks, setCompletedTasks] = useState<string[]>([]);
 
-  const [inputValue, setInputValue] = useState("");
+  // const [inputValue, setInputValue] = useState("");
   const [textInput_visible, textInput_toggleVisibility] = useState(false);
 
   const CreateTaskButton = (
@@ -253,26 +252,14 @@ function TaskItem({
 }
 
 function App() {
-  const MainPage = (
-    <>
-      <header>
-        <div className="header-box">
-          <h1>Task Manager App</h1>
-        </div>
-      </header>
-
-      <ListGroup></ListGroup>
-    </>
-  );
-
   const [textInput_visible, textInput_toggleVisibility] = useState(false);
 
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, selectCategory] = useState<string>("");
 
-  const [tasks, setTasks] = useState<string[]>([]);
+  //const [tasks, setTasks] = useState<string[]>([]);
 
-  const [inputValue, setInputValue] = useState("");
+  // const [inputValue, setInputValue] = useState("");
 
   const createNewCategory = (value: string) => {
     if (value.trim() === "") {
@@ -331,7 +318,7 @@ function App() {
                 selectCategory(category);
               }}
               deleteCategory={deleteCategoryInList}
-              key={category}
+              key={index}
             >
               {category}
             </CategoryItem>
@@ -343,7 +330,7 @@ function App() {
         {categories.map((category, index) => (
           <>
             <CategoryWrapper
-              key={category}
+              key={index}
               visible={selectedCategory === category ? true : false}
             >
               {category}
