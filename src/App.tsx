@@ -1,21 +1,39 @@
 import { useState } from "react";
 import ListGroup from "./components/ListGroup";
 
-
 //Category Item
-interface categoryItemProps{
+interface categoryItemProps {
   children: string;
   deleteCategory: (value: string) => void;
   selectCategory: (value: string) => void;
 }
 
-function CategoryItem ({children,deleteCategory,selectCategory}:categoryItemProps) {
-  return <div style={{display: "flex"}}>
-    <li style={{cursor:"pointer"}} onClick={()=>{selectCategory(children)}}><b>{children}</b></li>
-    <span style={{marginLeft : "10px", cursor:"pointer"}} onClick={()=>{deleteCategory(children)}}>|| Remove</span>
-  </div>
+function CategoryItem({
+  children,
+  deleteCategory,
+  selectCategory,
+}: categoryItemProps) {
+  return (
+    <div style={{ display: "flex", borderBottom: "1px solid gray" }}>
+      <li
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          selectCategory(children);
+        }}
+      >
+        <b>{children}</b>
+      </li>
+      <span
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          deleteCategory(children);
+        }}
+      >
+        Delete
+      </span>
+    </div>
+  );
 }
-
 
 //Wrapper for category
 interface categoryWrapperProps {
@@ -23,8 +41,7 @@ interface categoryWrapperProps {
   children: string;
 }
 
-function CategoryWrapper ({visible, children}:categoryWrapperProps) {
-
+function CategoryWrapper({ visible, children }: categoryWrapperProps) {
   const [uncompletedTasks, setUncompletedTasks] = useState<string[]>([]);
   const [completedTasks, setCompletedTasks] = useState<string[]>([]);
 
@@ -32,24 +49,32 @@ function CategoryWrapper ({visible, children}:categoryWrapperProps) {
   const [textInput_visible, textInput_toggleVisibility] = useState(false);
 
   const CreateTaskButton = (
-    <div>
-           <button onClick={()=>{textInput_toggleVisibility(!textInput_visible)}}>Create New Task</button>
-           {textInput_visible? <input onKeyDown={(e) => {
-       if (e.key === "Enter")
-        createNewTask((e.target as HTMLInputElement).value);
-         
-       }} type="text" autoFocus /> : null}
-
-      
-         </div>
- )
+    <div className="CreateButton-Task">
+      <button
+        onClick={() => {
+          textInput_toggleVisibility(!textInput_visible);
+        }}
+      >
+        New Task +
+      </button>
+      {textInput_visible ? (
+        <input
+          onKeyDown={(e) => {
+            if (e.key === "Enter")
+              createNewTask((e.target as HTMLInputElement).value);
+          }}
+          type="text"
+          autoFocus
+        />
+      ) : null}
+    </div>
+  );
 
   const createNewTask = (value: string) => {
-    if (value.trim() === "") 
-      {
-        textInput_toggleVisibility(!textInput_visible);
-        return;
-      } // Prevent empty categories
+    if (value.trim() === "") {
+      textInput_toggleVisibility(!textInput_visible);
+      return;
+    } // Prevent empty categories
     setUncompletedTasks([...uncompletedTasks, value]); // Add new category
     textInput_toggleVisibility(!textInput_visible);
   };
@@ -57,56 +82,107 @@ function CategoryWrapper ({visible, children}:categoryWrapperProps) {
   const transferTask = (value: string, bool: boolean) => {
     if (bool) {
       setCompletedTasks([...completedTasks, value]);
-      setUncompletedTasks(uncompletedTasks.filter((uncompletedTask) => uncompletedTask !== value));
+      setUncompletedTasks(
+        uncompletedTasks.filter((uncompletedTask) => uncompletedTask !== value)
+      );
     } else {
       setUncompletedTasks([...uncompletedTasks, value]);
-      setCompletedTasks(completedTasks.filter((completedTask) => completedTask !== value));
+      setCompletedTasks(
+        completedTasks.filter((completedTask) => completedTask !== value)
+      );
     }
-  }
+  };
 
-  const progressBar = {
-    width:"100px",
-    height:"10px",
-    border:"2px solid black",
-    padding:"2px"
-  }
+  const progressPrecentage = (
+    (completedTasks.length * 100) /
+    (uncompletedTasks.length + completedTasks.length)
+  ).toFixed(1);
 
-  const progressPrecentage = ((completedTasks.length * 100) / (uncompletedTasks.length + completedTasks.length)).toFixed(1);
+  return (
+    <div
+      style={{
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        height: "100%",
 
-  return <div style={{display: visible ? "block" : "none"}}>
-    <h1>{children}</h1>
-    {CreateTaskButton}
+        display: visible ? "flex" : "none",
+      }}
+    >
+      <div style={{ width: "90%" }}>
+        <h1 style={{ fontSize: "2em", color: "#1E1E1E" }}>{children}</h1>
+        {CreateTaskButton}
 
-    
-    <ul className="taskList">
+        <ul className="taskList">
+          {/* List of uncompleted tasks */}
+          {uncompletedTasks.map((uncompletedTask, index) => (
+            <TaskItem
+              completed={false}
+              transferTask={transferTask}
+              deleteTask={(value) => {
+                setUncompletedTasks(
+                  uncompletedTasks.filter(
+                    (uncompletedTask) => uncompletedTask !== value
+                  )
+                );
+              }}
+              key={index}
+            >
+              {uncompletedTask}
+            </TaskItem>
+          ))}
 
-      {/* List of uncompleted tasks */}
-      {uncompletedTasks.map((uncompletedTask, index) => (
-        <TaskItem completed={false} transferTask={transferTask} deleteTask={(value) => {setUncompletedTasks(uncompletedTasks.filter((uncompletedTask) => uncompletedTask !== value));}} 
-           key={index}>{uncompletedTask}</TaskItem>
-      ))}
+          {/* A line that divides uncompleted and completed tasks visualy */}
+          {completedTasks.length > 0 && uncompletedTasks.length > 0 ? (
+            <hr />
+          ) : null}
 
-      {/* A line that divides uncompleted and completed tasks visualy */}
-      { completedTasks.length > 0 && uncompletedTasks.length > 0 ? <hr /> : null}
+          {/* List of completed tasks */}
+          {completedTasks.map((completedTask, index) => (
+            <TaskItem
+              completed={true}
+              transferTask={transferTask}
+              deleteTask={(value) => {
+                setCompletedTasks(
+                  completedTasks.filter(
+                    (completedTask) => completedTask !== value
+                  )
+                );
+              }}
+              key={index}
+            >
+              {completedTask}
+            </TaskItem>
+          ))}
+        </ul>
+      </div>
 
-      {/* List of completed tasks */}
-      {completedTasks.map((completedTask, index) => (
-        <TaskItem completed={true} transferTask={transferTask} deleteTask={(value) => {setCompletedTasks(completedTasks.filter((completedTask) => completedTask !== value));}} 
-           key={index}>{completedTask}</TaskItem> ))}
-    </ul>
-    
-      
-
-    <div style={{display:"flex",alignItems:"center"}}>
-
-      <p style={{marginRight:"5px"}}> Completed: {completedTasks.length > 0? progressPrecentage : 0}%</p>
-      <div style={progressBar}>
-        <div style={{width: completedTasks.length > 0 ? `${progressPrecentage}%` : '0%', height: "100%", backgroundColor: "black",transition:"0.5s width"}}></div>
+      <div
+        style={{
+          width: "90%",
+          border: "0px solid red",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ color: "#1E1E1E", marginRight: "5px" }}>
+          {" "}
+          Completed: {completedTasks.length > 0 ? progressPrecentage : 0}%
+        </p>
+        <div className="ProgressBar">
+          <div
+            style={{
+              width:
+                completedTasks.length > 0 ? `${progressPrecentage}%` : "0%",
+              height: "100%",
+              backgroundColor: "#4EBE51",
+              transition: "0.5s width",
+              borderRadius: "10px",
+            }}
+          ></div>
+        </div>
       </div>
     </div>
-    
-
-  </div>
+  );
 }
 
 interface taskItemProps {
@@ -116,116 +192,169 @@ interface taskItemProps {
   deleteTask: (value: string) => void;
 }
 
-function TaskItem ({children,completed,transferTask,deleteTask}:taskItemProps) {
-  
-
+function TaskItem({
+  children,
+  completed,
+  transferTask,
+  deleteTask,
+}: taskItemProps) {
   const TaskItemStyle = {
-    cursor:"pointer",
-    listStyleType: "none"
-  }
+    cursor: "pointer",
+    listStyleType: "none",
+  };
 
-  const circle = <span style={{marginLeft:"10px", cursor:"pointer"}}>⚪</span>
-  const fullCircle = <span style={{marginLeft:"10px", cursor:"pointer"}}>⚫</span>
-  const removeButton = <span onClick={()=> {completed? deleteTask(children):deleteTask(children)}} style={{marginLeft:"10px", cursor:"pointer"}}>|| Remove</span>
-  
+  const circle = <span className="Checkbox-unchecked"></span>;
+  const fullCircle = <span className="Checkbox-checked"></span>;
+  const removeButton = (
+    <span
+      className="DeleteTaskButton"
+      onClick={() => {
+        completed ? deleteTask(children) : deleteTask(children);
+      }}
+    >
+      Delete
+    </span>
+  );
 
-  const completedTask = <div style={{display:"flex"}}>
+  const completedTask = (
+    <div className="TaskElement" style={{ display: "flex" }}>
       {fullCircle}
-      <li style={TaskItemStyle} onClick={()=>{transferTask(children,false); } }> <b><s>{children}</s></b> </li>
+      <li
+        style={TaskItemStyle}
+        onClick={() => {
+          transferTask(children, false);
+        }}
+      >
+        {" "}
+        <b style={{ color: "gray" }}>
+          <s>{children}</s>
+        </b>{" "}
+      </li>
       {removeButton}
     </div>
+  );
 
-  const uncompletedTask = <div style={{display:"flex"}}>
-    {circle}
-  <li style={TaskItemStyle} onClick={()=>{transferTask(children,true)}}><b>{children}</b></li>
-  {removeButton}
-</div>
-  
-  return completed ?  completedTask: uncompletedTask;
-} 
+  const uncompletedTask = (
+    <div className="TaskElement" style={{ display: "flex" }}>
+      {circle}
+      <li
+        style={TaskItemStyle}
+        onClick={() => {
+          transferTask(children, true);
+        }}
+      >
+        <b>{children}</b>
+      </li>
+      {removeButton}
+    </div>
+  );
 
-function App () {
+  return completed ? completedTask : uncompletedTask;
+}
 
-  const MainPage = <>
-    <header> 
-      <div className="header-box">
-        <h1>Task Manager App</h1> 
-      </div>
-      
-      
-    
-    </header>
-    
-    <ListGroup></ListGroup>
-    
-  </>
+function App() {
+  const MainPage = (
+    <>
+      <header>
+        <div className="header-box">
+          <h1>Task Manager App</h1>
+        </div>
+      </header>
+
+      <ListGroup></ListGroup>
+    </>
+  );
 
   const [textInput_visible, textInput_toggleVisibility] = useState(false);
-  
- 
 
   const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory,selectCategory] = useState<string>("");
+  const [selectedCategory, selectCategory] = useState<string>("");
 
   const [tasks, setTasks] = useState<string[]>([]);
-  
+
   const [inputValue, setInputValue] = useState("");
-  
 
   const createNewCategory = (value: string) => {
-    if (value.trim() === "") 
-      {
-        textInput_toggleVisibility(!textInput_visible);
-        return;
-      } // Prevent empty categories
+    if (value.trim() === "") {
+      textInput_toggleVisibility(!textInput_visible);
+      return;
+    } // Prevent empty categories
     setCategories([...categories, value]); // Add new category
     textInput_toggleVisibility(!textInput_visible);
   };
 
-  
-
   const CreateCategegoryButton = (
-    <div>
-           <button onClick={()=>{textInput_toggleVisibility(!textInput_visible)}}>Create New Category</button>
-           {textInput_visible? <input onKeyDown={(e) => {
-       if (e.key === "Enter")
-         createNewCategory((e.target as HTMLInputElement).value);
-         
-       }} type="text" autoFocus /> : null}
+    <div className="CreateButton">
+      <button
+        onClick={() => {
+          textInput_toggleVisibility(!textInput_visible);
+        }}
+      >
+        New Category +
+      </button>
+      {textInput_visible ? (
+        <input
+          onKeyDown={(e) => {
+            if (e.key === "Enter")
+              createNewCategory((e.target as HTMLInputElement).value);
+          }}
+          type="text"
+          autoFocus
+        />
+      ) : null}
+    </div>
+  );
 
-      
-         </div>
- )
+  const deleteCategoryInList = (value: string) => {
+    setCategories(categories.filter((category) => category !== value));
+  };
 
- 
+  const Test = (
+    <div className="ScreenHolder">
+      <div className="Categories">
+        <h1 style={{ fontSize: "2em" }}>Task Manager</h1>
+        <div
+          style={{
+            display: "flex",
+            border: "0px solid red",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <h2 style={{ fontSize: "1.3em" }}>Categories</h2>
+          {CreateCategegoryButton}
+        </div>
+        <ul className="categoryList">
+          {categories.map((category, index) => (
+            <CategoryItem
+              selectCategory={() => {
+                selectCategory(category);
+              }}
+              deleteCategory={deleteCategoryInList}
+              key={category}
+            >
+              {category}
+            </CategoryItem>
+          ))}
+        </ul>
+      </div>
 
- const deleteCategoryInList = (value: string) => {
-  setCategories(categories.filter((category) => category !== value));
- };
+      <div className="Tasks">
+        {categories.map((category, index) => (
+          <>
+            <CategoryWrapper
+              key={category}
+              visible={selectedCategory === category ? true : false}
+            >
+              {category}
+            </CategoryWrapper>
+          </>
+        ))}
+      </div>
+    </div>
+  );
 
- 
-
-  const Test = <div>
-    <h1>Categories</h1> 
-    {CreateCategegoryButton}   
-    <ul className="categoryList">
-      {categories.map((category, index) => (
-        <CategoryItem selectCategory={()=>{selectCategory(category)}} deleteCategory={deleteCategoryInList} key={category}>{category}</CategoryItem>))}
-    </ul>
-
-    {categories.map((category, index) => (
-     <>
-     <CategoryWrapper key={category} visible={selectedCategory === category?true:false}> 
-      {category}</CategoryWrapper>
-     </>
-      
-      
-    ))}
-  </div>
-
-    return Test;
+  return Test;
 }
-
-
 
 export default App;
