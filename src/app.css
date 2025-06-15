@@ -10,6 +10,20 @@
     padding: 1%;
     padding-right: 5%;
     border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.Categories .ToggleVisibility {
+    float: right;
+    font-size: 1vw;
+    
+    width: 100vw;
+    max-width: 5vw;
+    height: 150%;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
 }
 
 .ScreenHolder {
@@ -66,6 +80,8 @@ h1, h2, p, ul{
     color: white;
     border-radius: 10px;
     transition: transform 0.2s;
+    width: 10vw;
+    font-size: 1.5vw;
     
 }
 
@@ -74,15 +90,7 @@ h1, h2, p, ul{
 
 }
 
-.CreateButton button {
-    border: 1px solid white;
-    display: block;
-    background-color: #1E1E1E;
-    color: white;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    
-}
+
 
 .CreateButton-Task button:hover {
     transform: scale(1.1,1.1);

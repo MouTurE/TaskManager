@@ -256,6 +256,7 @@ function App() {
 
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, selectCategory] = useState<string>("");
+  const [categoryVisible, setCategoryVisible] = useState<boolean>(true);
 
   //const [tasks, setTasks] = useState<string[]>([]);
 
@@ -271,7 +272,10 @@ function App() {
   };
 
   const CreateCategegoryButton = (
-    <div className="CreateButton">
+    <div
+      style={{ display: categoryVisible == true ? "block" : "none" }}
+      className="CreateButton"
+    >
       <button
         onClick={() => {
           textInput_toggleVisibility(!textInput_visible);
@@ -298,20 +302,41 @@ function App() {
 
   const Test = (
     <div className="ScreenHolder">
-      <div className="Categories">
-        <h1 style={{ fontSize: "2em" }}>Task Manager</h1>
+      <div
+        style={{ width: categoryVisible == true ? "100%" : "4%" }}
+        className="Categories"
+      >
+        <h1
+          style={{
+            display: categoryVisible == true ? "block" : "none",
+            fontSize: "3vw",
+          }}
+        >
+          Task Manager
+        </h1>
         <div
           style={{
             display: "flex",
+            flexWrap: "wrap",
             border: "0px solid red",
             alignItems: "center",
             justifyContent: "space-between",
           }}
         >
-          <h2 style={{ fontSize: "1.3em" }}>Categories</h2>
+          <h2
+            style={{
+              display: categoryVisible == true ? "block" : "none",
+              fontSize: "2vw",
+            }}
+          >
+            Categories
+          </h2>
           {CreateCategegoryButton}
         </div>
-        <ul className="categoryList">
+        <ul
+          style={{ display: categoryVisible == true ? "block" : "none" }}
+          className="categoryList"
+        >
           {categories.map((category, index) => (
             <CategoryItem
               selectCategory={() => {
@@ -324,6 +349,23 @@ function App() {
             </CategoryItem>
           ))}
         </ul>
+
+        <div
+          style={{
+            display: "flex",
+            border: "0px solid red",
+            justifyContent: "end",
+          }}
+        >
+          <button
+            onClick={() => {
+              setCategoryVisible(!categoryVisible);
+            }}
+            className="ToggleVisibility"
+          >
+            {categoryVisible == true ? "<" : ">"}
+          </button>
+        </div>
       </div>
 
       <div className="Tasks">
