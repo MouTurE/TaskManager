@@ -83,8 +83,8 @@ h1, h2, p, ul{
     border-radius: 10px;
     transition: transform 0.2s;
     width: 5vw;
-    height: 20vh;
-    max-height: 6vh;
+    height: 50vh;
+    max-height: 35px;
     font-size: 1.2vw;
     justify-content: center;
     align-items: center;
