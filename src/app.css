@@ -26,6 +26,7 @@
     border-radius: 10px;
 }
 
+
 .ScreenHolder {
     display: flex;
     flex-direction: row;
@@ -57,6 +58,7 @@ row-gap: 50px;
     border: 2px solid black;
     border-radius: 10px;
     padding: 2px;
+    
 }
 
 .Tasks ul {
@@ -70,7 +72,7 @@ row-gap: 50px;
 h1, h2, p, ul{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.1em;
+    font-size: clamp(1.5vh,1em,5em);
 }
 
 .CreateButton button {
@@ -80,8 +82,12 @@ h1, h2, p, ul{
     color: white;
     border-radius: 10px;
     transition: transform 0.2s;
-    width: 10vw;
-    font-size: 1.5vw;
+    width: 5vw;
+    height: 20vh;
+    max-height: 6vh;
+    font-size: 1.2vw;
+    justify-content: center;
+    align-items: center;
     
 }
 

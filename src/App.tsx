@@ -15,7 +15,7 @@ function CategoryItem({
   return (
     <div style={{ display: "flex", borderBottom: "1px solid gray" }}>
       <li
-        style={{ cursor: "pointer" }}
+        style={{ fontSize: "1.5vw", cursor: "pointer" }}
         onClick={() => {
           selectCategory(children);
         }}
@@ -23,7 +23,7 @@ function CategoryItem({
         <b>{children}</b>
       </li>
       <span
-        style={{ cursor: "pointer" }}
+        style={{ fontSize: "1.5vw", cursor: "pointer" }}
         onClick={() => {
           deleteCategory(children);
         }}
@@ -281,7 +281,7 @@ function App() {
           textInput_toggleVisibility(!textInput_visible);
         }}
       >
-        New Category +
+        +
       </button>
       {textInput_visible ? (
         <input
