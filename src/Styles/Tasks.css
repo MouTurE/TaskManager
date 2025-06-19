@@ -1,0 +1,54 @@
+.Tasks {
+padding: 1%;
+padding-left: 5%;
+height: 100%;
+width: 100%;
+background-color: white;
+
+border-left: none;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+row-gap: 50px;
+
+}
+
+.Tasks .ProgressBar{
+    
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 2px;
+    
+}
+
+.Tasks ul {
+    border: 0px solid red;
+    width: 80%;
+    margin: 0%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.Tasks .Header {
+    color:#1E1E1E;
+    font-size: 2em;
+    
+}
+
+.Tasks .Wrapper {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height:100%;
+}
+
+.Tasks .HorizontalWrapper {
+
+    border:  0px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+

@@ -1,0 +1,172 @@
+@media (orientation: landscape){ 
+
+    .Categories{
+        border: 0px solid black;
+        background-color: #1E1E1E;
+        display: flex;
+        width: 100%;
+        max-width: 30%;
+        height: 90vh;
+        flex-direction: column;
+        padding: 1%;
+        padding-right: 5%;
+        border-radius: 10px;
+        transition: width 0.3s ease;
+    }
+
+    .Categories h1 {
+      font-size: 3vw;  
+    }
+
+    .Categories .CategoryWrapper {
+        display: flex;
+        border-bottom: 1px solid gray;
+    }
+    .Categories span {
+        
+        margin: 0px;
+    }
+
+    
+    .Categories .ToggleVisibility {
+        
+        font-size: 1vw;
+        
+        width: 5vw;
+        height: 5vh;
+        
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+
+    .Categories .HorizontalWrapper {
+        border: 0px solid red;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .Categories .CreateButton button {
+        border: 1px solid white;
+        display: block;
+        background-color: #1E1E1E;
+        color: white;
+        border-radius: 10px;
+        transition: transform 0.2s;
+        width: 5vw;
+        height: 5vh;
+        
+        font-size: 30%;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .Categories .CreateButton button:hover {
+        transform: scale(1.1,1.1);
+
+    }
+
+   
+}
+
+
+@media (orientation: portrait) {
+    .Categories{
+        border: 0px solid black;
+        background-color: #1E1E1E;
+        display: flex;
+        width: 100%;
+        max-width: 70vw;
+        height: 90vh;
+        flex-direction: column;
+        padding: 1%;
+        padding-right: 5%;
+        border-radius: 10px;
+        transition: width 0.3s ease;
+    }
+
+        
+
+    
+    .Categories .ToggleVisibility {
+        
+        font-size: 1vw;
+        
+        width: 10vw;
+        height: 5vh;
+        font-size: 75%;
+        
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        border-radius: 50px;
+    }
+
+    .Categories .HorizontalWrapper {
+        border: 0px solid red;
+        display: flex;
+        justify-content: end;
+    }
+
+    .Categories .CreateButton button {
+        border: 1px solid white;
+        display: block;
+        background-color: #1E1E1E;
+        color: white;
+        border-radius: 50px;
+        transition: transform 0.2s;
+        width: 10vw;
+        height:5vh;
+        
+        font-size: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .Categories .CreateButton button:hover {
+        transform: scale(1.1,1.1);
+
+    }
+
+    .Categories .HorizontalWrapper {
+
+    }
+
+    .Categories h1 {
+        font-size: 5vw;
+    }
+
+    .Categories h2{
+        font-size: 5vw;
+    }
+
+    .Categories span {
+        font-size: 5vw;
+        cursor: pointer;
+        padding-right: 0px;
+    }
+
+    
+    .Categories li {
+        font-size: 5vw;
+        cursor: pointer;
+        
+    }
+
+    .Categories .CategoryWrapper {
+        display: flex;
+        border-bottom: 1px solid gray;
+        
+    }
+
+    .Categories .CategoryList {
+        border:0px solid red;
+        align-items: flex-start;
+        justify-content:space-around;
+        padding: 0px;
+    }
+
+}

@@ -13,23 +13,25 @@ function CategoryItem({
   selectCategory,
 }: categoryItemProps) {
   return (
-    <div style={{ display: "flex", borderBottom: "1px solid gray" }}>
+    <div className="CategoryWrapper" style={{}}>
       <li
-        style={{ fontSize: "1.5vw", cursor: "pointer" }}
+        style={{}}
         onClick={() => {
           selectCategory(children);
         }}
       >
         <b>{children}</b>
       </li>
-      <span
-        style={{ fontSize: "1.5vw", cursor: "pointer" }}
-        onClick={() => {
-          deleteCategory(children);
-        }}
-      >
-        Delete
-      </span>
+      <div>
+        <span
+          style={{}}
+          onClick={() => {
+            deleteCategory(children);
+          }}
+        >
+          Delete
+        </span>
+      </div>
     </div>
   );
 }
@@ -99,18 +101,18 @@ function CategoryWrapper({ visible, children }: categoryWrapperProps) {
 
   return (
     <div
+      className="Wrapper"
       style={{
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        height: "100%",
-
         display: visible ? "flex" : "none",
       }}
     >
       <div style={{ width: "90%" }}>
-        <h1 style={{ fontSize: "2em", color: "#1E1E1E" }}>{children}</h1>
-        {CreateTaskButton}
+        <div className="HorizontalWrapper">
+          <h1 className="Header" style={{}}>
+            {children}
+          </h1>
+          {CreateTaskButton}
+        </div>
 
         <ul className="taskList">
           {/* List of uncompleted tasks */}
@@ -167,7 +169,7 @@ function CategoryWrapper({ visible, children }: categoryWrapperProps) {
           {" "}
           Completed: {completedTasks.length > 0 ? progressPrecentage : 0}%
         </p>
-        <div className="ProgressBar">
+        <div className="ProgressBar" style={{}}>
           <div
             style={{
               width:
@@ -303,17 +305,30 @@ function App() {
   const Test = (
     <div className="ScreenHolder">
       <div
-        style={{ width: categoryVisible == true ? "100%" : "4%" }}
+        style={{
+          width: categoryVisible == true ? "100vw" : "4vw",
+        }}
         className="Categories"
       >
-        <h1
-          style={{
-            display: categoryVisible == true ? "block" : "none",
-            fontSize: "3vw",
-          }}
-        >
-          Task Manager
-        </h1>
+        <div className="HorizontalWrapper">
+          <h1
+            style={{
+              display: categoryVisible == true ? "block" : "none",
+            }}
+          >
+            Task Manager
+          </h1>
+
+          <button
+            onClick={() => {
+              setCategoryVisible(!categoryVisible);
+            }}
+            className="ToggleVisibility"
+          >
+            {categoryVisible == true ? "<" : ">"}
+          </button>
+        </div>
+
         <div
           style={{
             display: "flex",
@@ -326,7 +341,6 @@ function App() {
           <h2
             style={{
               display: categoryVisible == true ? "block" : "none",
-              fontSize: "2vw",
             }}
           >
             Categories
@@ -335,7 +349,7 @@ function App() {
         </div>
         <ul
           style={{ display: categoryVisible == true ? "block" : "none" }}
-          className="categoryList"
+          className="CategoryList"
         >
           {categories.map((category, index) => (
             <CategoryItem
@@ -356,19 +370,15 @@ function App() {
             border: "0px solid red",
             justifyContent: "end",
           }}
-        >
-          <button
-            onClick={() => {
-              setCategoryVisible(!categoryVisible);
-            }}
-            className="ToggleVisibility"
-          >
-            {categoryVisible == true ? "<" : ">"}
-          </button>
-        </div>
+        ></div>
       </div>
 
-      <div className="Tasks">
+      <div
+        className="Tasks"
+        style={{
+          filter: categoryVisible == true ? "blur(1px)" : "blur(0px)",
+        }}
+      >
         {categories.map((category, index) => (
           <>
             <CategoryWrapper

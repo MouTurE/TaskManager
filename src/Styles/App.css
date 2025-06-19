@@ -1,32 +1,3 @@
-.Categories
-{
-    border: 0px solid black;
-    background-color: #1E1E1E;
-    display: flex;
-    width: 100%;
-    max-width: 30%;
-    height: 90vh;
-    flex-direction: column;
-    padding: 1%;
-    padding-right: 5%;
-    border-radius: 10px;
-    transition: width 0.3s ease;
-}
-
-.Categories .ToggleVisibility {
-    float: right;
-    font-size: 1vw;
-    
-    width: 100vw;
-    max-width: 5vw;
-    height: 150%;
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-    border-radius: 10px;
-}
-
-
 .ScreenHolder {
     display: flex;
     flex-direction: row;
@@ -36,65 +7,13 @@
     
 }
 
-.Tasks {
-padding: 1%;
-padding-left: 5%;
-height: 100%;
-width: 100%;
-background-color: white;
-
-border-left: none;
-border-radius: 10px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-row-gap: 50px;
-
-}
-
-.Tasks .ProgressBar{
-    
-    height: 30px;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 2px;
-    
-}
-
-.Tasks ul {
-    border: 0px solid red;
-    width: 80%;
-    margin: 0%;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
 h1, h2, p, ul{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(1.5vh,1em,5em);
 }
 
-.CreateButton button {
-    border: 1px solid white;
-    display: block;
-    background-color: #1E1E1E;
-    color: white;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    width: 5vw;
-    height: 50vh;
-    max-height: 35px;
-    font-size: 1.2vw;
-    justify-content: center;
-    align-items: center;
-    
-}
 
-.CreateButton button:hover {
-    transform: scale(1.1,1.1);
-
-}
 
 
 
