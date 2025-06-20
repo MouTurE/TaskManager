@@ -33,12 +33,12 @@
         font-size: 1vw;
         
         width: 5vw;
-        height: 5vh;
+        height: 6vh;
         
         background-color: transparent;
         color: white;
         border: 1px solid white;
-        border-radius: 10px;
+        border-radius: 20px;
     }
 
     .Categories .HorizontalWrapper {
@@ -52,12 +52,12 @@
         display: block;
         background-color: #1E1E1E;
         color: white;
-        border-radius: 10px;
+        border-radius: 20px;
         transition: transform 0.2s;
         width: 5vw;
-        height: 5vh;
+        height: 6vh;
         
-        font-size: 30%;
+        font-size: 1vw;
         justify-content: center;
         align-items: center;
     }

@@ -45,29 +45,30 @@ interface categoryWrapperProps {
 function CategoryWrapper({ visible, children }: categoryWrapperProps) {
   const [uncompletedTasks, setUncompletedTasks] = useState<string[]>([]);
   const [completedTasks, setCompletedTasks] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
 
-  // const [inputValue, setInputValue] = useState("");
   const [textInput_visible, textInput_toggleVisibility] = useState(false);
 
-  const CreateTaskButton = (
+  const handleButtonClick = () => {
+    console.log("Input Value:", inputValue);
+    // You can call any other function here and pass inputValue as needed
+    createNewTask(inputValue);
+    setInputValue("");
+  };
+
+  const CreateTaskElement = (
     <div className="CreateButton-Task">
-      <button
-        onClick={() => {
-          textInput_toggleVisibility(!textInput_visible);
+      <input
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleButtonClick();
         }}
-      >
-        New Task +
-      </button>
-      {textInput_visible ? (
-        <input
-          onKeyDown={(e) => {
-            if (e.key === "Enter")
-              createNewTask((e.target as HTMLInputElement).value);
-          }}
-          type="text"
-          autoFocus
-        />
-      ) : null}
+        onChange={(e) => setInputValue(e.target.value)}
+        type="text"
+        value={inputValue || ""}
+        autoFocus
+      />
+
+      <button onClick={handleButtonClick}>{">"}</button>
     </div>
   );
 
@@ -111,75 +112,80 @@ function CategoryWrapper({ visible, children }: categoryWrapperProps) {
           <h1 className="Header" style={{}}>
             {children}
           </h1>
-          {CreateTaskButton}
         </div>
 
-        <ul className="taskList">
-          {/* List of uncompleted tasks */}
-          {uncompletedTasks.map((uncompletedTask, index) => (
-            <TaskItem
-              completed={false}
-              transferTask={transferTask}
-              deleteTask={(value) => {
-                setUncompletedTasks(
-                  uncompletedTasks.filter(
-                    (uncompletedTask) => uncompletedTask !== value
-                  )
-                );
-              }}
-              key={index}
-            >
-              {uncompletedTask}
-            </TaskItem>
-          ))}
-
-          {/* A line that divides uncompleted and completed tasks visualy */}
-          {completedTasks.length > 0 && uncompletedTasks.length > 0 ? (
-            <hr />
-          ) : null}
-
-          {/* List of completed tasks */}
-          {completedTasks.map((completedTask, index) => (
-            <TaskItem
-              completed={true}
-              transferTask={transferTask}
-              deleteTask={(value) => {
-                setCompletedTasks(
-                  completedTasks.filter(
-                    (completedTask) => completedTask !== value
-                  )
-                );
-              }}
-              key={index}
-            >
-              {completedTask}
-            </TaskItem>
-          ))}
-        </ul>
+        <div className="TasksContainer">
+          <ul className="taskList">
+            {/* List of uncompleted tasks */}
+            {uncompletedTasks.map((uncompletedTask, index) => (
+              <TaskItem
+                completed={false}
+                transferTask={transferTask}
+                deleteTask={(value) => {
+                  setUncompletedTasks(
+                    uncompletedTasks.filter(
+                      (uncompletedTask) => uncompletedTask !== value
+                    )
+                  );
+                }}
+                key={index}
+              >
+                {uncompletedTask}
+              </TaskItem>
+            ))}
+            {/* A line that divides uncompleted and completed tasks visualy */}
+            {completedTasks.length > 0 && uncompletedTasks.length > 0 ? (
+              <hr />
+            ) : null}
+            {/* List of completed tasks */}
+            {completedTasks.map((completedTask, index) => (
+              <TaskItem
+                completed={true}
+                transferTask={transferTask}
+                deleteTask={(value) => {
+                  setCompletedTasks(
+                    completedTasks.filter(
+                      (completedTask) => completedTask !== value
+                    )
+                  );
+                }}
+                key={index}
+              >
+                {completedTask}
+              </TaskItem>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <div
-        style={{
-          width: "90%",
-          border: "0px solid red",
-          alignItems: "center",
-        }}
-      >
-        <p style={{ color: "#1E1E1E", marginRight: "5px" }}>
-          {" "}
-          Completed: {completedTasks.length > 0 ? progressPrecentage : 0}%
-        </p>
-        <div className="ProgressBar" style={{}}>
-          <div
-            style={{
-              width:
-                completedTasks.length > 0 ? `${progressPrecentage}%` : "0%",
-              height: "100%",
-              backgroundColor: "#4EBE51",
-              transition: "0.5s width",
-              borderRadius: "10px",
-            }}
-          ></div>
+      <div className="Tools">
+        {CreateTaskElement}
+
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "2%",
+          }}
+        >
+          <p style={{ color: "#1E1E1E", marginRight: "5px" }}>
+            {" "}
+            [ {completedTasks.length > 0 ? progressPrecentage : 0}% ]
+          </p>
+          <div className="ProgressBar" style={{}}>
+            <div
+              style={{
+                width:
+                  completedTasks.length > 0 ? `${progressPrecentage}%` : "0%",
+                height: "100%",
+                backgroundColor: "#4EBE51",
+                transition: "0.5s width",
+                borderRadius: "10px",
+              }}
+            ></div>
+          </div>
         </div>
       </div>
     </div>

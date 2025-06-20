@@ -20,14 +20,35 @@ row-gap: 50px;
     border: 2px solid black;
     border-radius: 10px;
     padding: 2px;
+    width: 80%;
+    
+    
     
 }
 
-.Tasks ul {
+.Tasks .Tools {
+    display: flex;
+    flex-direction: column;
+    width: 100%;    
     border: 0px solid red;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    
+    
+    align-items: center;
+}
+
+.Tasks .TasksContainer {
+    border: 0px solid red;
+    height: 35vh;
+    overflow: auto;
+}
+
+.Tasks ul {
     width: 80%;
+    height: 100%;
     margin: 0%;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
 
@@ -51,4 +72,47 @@ row-gap: 50px;
     align-items: center;
     justify-content: flex-start;
 }
+
+.Tasks .CreateButton-Task {
+    border: 0px solid red;
+    
+    
+    display: flex;
+    background-color: transparent;
+    color: #1E1E1E;
+    
+    border-radius: 10px;
+    transition: transform 0.2s;
+    width:100%;
+    justify-content:flex-end;
+    
+}
+
+.Tasks .CreateButton-Task button {
+    border: 1px solid #1E1E1E;
+    color: white;
+    background-color: #1E1E1E;
+    border-radius: 20px;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 10%;
+    font-size: 2vw;
+}
+
+.Tasks .CreateButton-Task input {
+    height: 30px;
+    width: 80%;
+   
+    border: 1px solid gray;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    
+}
+
+
 

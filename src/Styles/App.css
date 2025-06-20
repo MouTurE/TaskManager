@@ -22,15 +22,7 @@ h1, h2, p, ul{
 
 }
 
-.CreateButton-Task button {
-    border: 1px solid #1E1E1E;
-    display: block;
-    background-color: transparent;
-    color: #1E1E1E;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    
-}
+
 
 li,span{
     list-style: none;
