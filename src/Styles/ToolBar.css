@@ -1,0 +1,88 @@
+.Tasks .ProgressBar{
+    
+    height: 1vh;
+    border: 0.5px solid black;
+    background-color: #404040;
+    border-radius: 10px;
+    padding: 2px;
+    width: 20%;
+    
+    
+}
+
+.Progressbar-Percentage {
+    color: white;
+    padding-right: 5px;
+    
+}
+
+.Tasks .Tools {
+    display: flexbox;
+    flex-direction: column;
+    
+    width:100%;
+
+    
+    
+      
+    border: 0px solid red;
+    background-color: #1D1E22;
+    margin-left: 0px;
+    margin-top: auto;
+
+    border-radius: 10px 10px 0px 0px;
+    
+    bottom: 3vh;
+    
+    
+    align-items: center;
+}
+
+
+
+
+.Tasks .CreateButton-Task {
+    border: 0px solid red;
+    margin-top: 1%;    
+    display: flex;
+    background-color: transparent;
+    color: #1E1E1E;
+    
+    border-radius: 10px;
+    transition: transform 0.2s;
+    width:100%;
+    justify-content:start;
+    
+}
+
+.Tasks .CreateButton-Task button {
+    border: 1px solid #1E1E1E;
+    color: black;
+    background-color: white;
+
+    border-radius: 200px;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    
+    width: 40px;
+    font-size: 2vw;
+}
+
+.Tasks .CreateButton-Task input {
+    height: 30px;
+    width: 80%;
+    margin-left: 3%;
+    padding-left: 10px;
+   
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    background-color: #404040;
+}
+
+

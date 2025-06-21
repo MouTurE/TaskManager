@@ -59,6 +59,7 @@ function CategoryWrapper({ visible, children }: categoryWrapperProps) {
   const CreateTaskElement = (
     <div className="CreateButton-Task">
       <input
+        placeholder="Add New Task..."
         onKeyDown={(e) => {
           if (e.key === "Enter") handleButtonClick();
         }}
@@ -98,7 +99,7 @@ function CategoryWrapper({ visible, children }: categoryWrapperProps) {
   const progressPrecentage = (
     (completedTasks.length * 100) /
     (uncompletedTasks.length + completedTasks.length)
-  ).toFixed(1);
+  ).toFixed(0);
 
   return (
     <div
@@ -165,12 +166,13 @@ function CategoryWrapper({ visible, children }: categoryWrapperProps) {
           style={{
             display: "flex",
             width: "100%",
-            justifyContent: "center",
+            justifyContent: "start",
             alignItems: "center",
-            padding: "2%",
+            paddingLeft: "2%",
+            border: "0px solid red",
           }}
         >
-          <p style={{ color: "#1E1E1E", marginRight: "5px" }}>
+          <p className="Progressbar-Percentage">
             {" "}
             [ {completedTasks.length > 0 ? progressPrecentage : 0}% ]
           </p>
@@ -293,6 +295,7 @@ function App() {
       </button>
       {textInput_visible ? (
         <input
+          placeholder="Add New Category..."
           onKeyDown={(e) => {
             if (e.key === "Enter")
               createNewCategory((e.target as HTMLInputElement).value);
@@ -379,12 +382,7 @@ function App() {
         ></div>
       </div>
 
-      <div
-        className="Tasks"
-        style={{
-          filter: categoryVisible == true ? "blur(1px)" : "blur(0px)",
-        }}
-      >
+      <div className="Tasks" style={{}}>
         {categories.map((category, index) => (
           <>
             <CategoryWrapper

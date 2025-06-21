@@ -1,42 +1,18 @@
 .Tasks {
-padding: 1%;
-padding-left: 5%;
-height: 100%;
-width: 100%;
+
+height: 95vh;
+width: 90%;
 background-color: white;
 
 border-left: none;
 border-radius: 10px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-row-gap: 50px;
+
 
 }
 
-.Tasks .ProgressBar{
-    
-    height: 30px;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 2px;
-    width: 80%;
-    
-    
-    
-}
 
-.Tasks .Tools {
-    display: flex;
-    flex-direction: column;
-    width: 100%;    
-    border: 0px solid red;
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 5px;
-    
-    
-    align-items: center;
-}
+
+
 
 .Tasks .TasksContainer {
     border: 0px solid red;
@@ -55,6 +31,8 @@ row-gap: 50px;
 .Tasks .Header {
     color:#1E1E1E;
     font-size: 2em;
+    padding-left: 2vw;
+    padding-top: 1vh;
     
 }
 
@@ -62,7 +40,9 @@ row-gap: 50px;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    height:100%;
+    border: 0px solid red;
+    height: 100%;
+    
 }
 
 .Tasks .HorizontalWrapper {
@@ -72,47 +52,3 @@ row-gap: 50px;
     align-items: center;
     justify-content: flex-start;
 }
-
-.Tasks .CreateButton-Task {
-    border: 0px solid red;
-    
-    
-    display: flex;
-    background-color: transparent;
-    color: #1E1E1E;
-    
-    border-radius: 10px;
-    transition: transform 0.2s;
-    width:100%;
-    justify-content:flex-end;
-    
-}
-
-.Tasks .CreateButton-Task button {
-    border: 1px solid #1E1E1E;
-    color: white;
-    background-color: #1E1E1E;
-    border-radius: 20px;
-    transition: transform 0.2s;
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    width: 10%;
-    font-size: 2vw;
-}
-
-.Tasks .CreateButton-Task input {
-    height: 30px;
-    width: 80%;
-   
-    border: 1px solid gray;
-    border-radius: 10px;
-    transition: transform 0.2s;
-    
-}
-
-
-

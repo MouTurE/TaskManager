@@ -1,9 +1,9 @@
 .ScreenHolder {
     display: flex;
     flex-direction: row;
-    border: 1px solid #1E1E1E;
+    border: 0px solid red;
     border-radius: 10px;
-    height: 92vh;
+    height: 100%;
     
 }
 
@@ -12,9 +12,6 @@ h1, h2, p, ul{
     font-family: Arial, Helvetica, sans-serif;
     font-size: clamp(1.5vh,1em,5em);
 }
-
-
-
 
 
 .CreateButton-Task button:hover {
