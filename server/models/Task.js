@@ -6,9 +6,16 @@ module.exports = (sequelize, DataTypes) => {
         },
         completed : {
             type : DataTypes.BOOLEAN
+            
         }
     })
     
+    Task.associate = function(models) {
+        Task.belongsTo(models.Category, {
+            foreignKey: 'categoryId',
+        });
+    };
+
     return Task;
 
 }
